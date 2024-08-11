@@ -85,9 +85,9 @@ body, html {
 
 }
 
-.btn-primary:hover {
+.btn-dark:hover {
     border-color: #000;
-    color: #000;
+    color: #fefefe;
 }
 
 /* Center "See More" button */

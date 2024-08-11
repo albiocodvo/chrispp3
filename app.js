@@ -6,7 +6,7 @@ function reloadPage() {
     window.location.reload(); // Reloads the current page
 }
 
-const apiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+const apiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 let currentPage = 1;
 let searchTitle = ''; // Track the current search title
 const resultsPerPage = 21;
@@ -52,7 +52,7 @@ function displayResults(data) {
                     <h5 class="card-title">${game.name}</h5>
                     <p class="card-text">Released: ${game.released}</p>
                     <p class="card-text">Platforms: ${game.platforms.map(platform => platform.platform.name).join(', ')}</p>
-                    <button class="btn btn-primary" onclick="showGameDetails('${game.id}')">More Details</button>
+                    <button class="btn btn-dark" onclick="showGameDetails('${game.id}')">More Details</button>
                 </div>
             </div>
             `;
