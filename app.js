@@ -6,7 +6,7 @@ function reloadPage() {
     window.location.reload(); // Reloads the current page
 }
 
-const apiKey = "93f03fba0a26433ca7a991c3a1df15f1";
+const apiKey = "xxxxxxxxxxxxxxxxxxxxxx";
 let currentPage = 1;
 let searchTitle = ''; // Track the current search title
 const resultsPerPage = 21;
