@@ -79,13 +79,15 @@ body, html {
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background: transparent;
+    background-color: #000;
+    border-color: #fefefe;
+
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+    border-color: #000;
+    color: #000;
 }
 
 /* Center "See More" button */
