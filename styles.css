@@ -59,30 +59,39 @@ body, html {
     border: none;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Make sure cards take full height in the column */
 }
 
 .card-img-top {
-    height: 300px; /* Adjust for larger images */
+    height: 200px; /* Set a fixed height for images */
     object-fit: cover;
 }
 
 .card-body {
+    flex: 1; /* Ensure card body takes up remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensure spacing between elements in card body */
     padding: 15px;
 }
 
 .card-title {
     font-size: 1.15rem;
+    margin-bottom: 10px; /* Add some space below the title */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Handle text overflow with ellipsis */
 }
 
 .card-text {
     font-size: 0.9rem;
+    margin-bottom: 5px; /* Add some space between paragraphs */
 }
 
 .btn-primary {
     background: transparent;
     background-color: #000;
     border-color: #fefefe;
-
 }
 
 .btn-dark:hover {
@@ -97,4 +106,10 @@ body, html {
 
 .mt-4 {
     margin-top: 1.5rem;
+}
+
+/* Star Rating Styles */
+.fa-star, .fa-star-half-alt, .fa-star-o {
+    color: gold;
+    font-size: 1.5rem; /* Adjust the size as needed */
 }

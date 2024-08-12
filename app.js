@@ -1,15 +1,16 @@
+
+const apiKey = /* "93f03fba0a26433ca7a991c3a1df15f1" */;
+let currentPage = 1;
+let searchTitle = '';
+const resultsPerPage = 21;
+
 // Function to reload the page and reset state
 function reloadPage() {
     searchTitle = ''; // Clear the search title
-    currentPage = 1; // Reset to the first page
+    currentPage = 1;
     document.getElementById('gameTitle').value = ''; // Clear the search input
-    window.location.reload(); // Reloads the current page
+    window.location.reload();
 }
-
-const apiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-let currentPage = 1;
-let searchTitle = ''; // Track the current search title
-const resultsPerPage = 21;
 
 // Function to fetch game data
 async function fetchGame(title, page = 1) {
@@ -18,7 +19,7 @@ async function fetchGame(title, page = 1) {
         const response = await fetch(url);
         const data = await response.json();
 
-        // Filter results to only show exact matches and sort alphabetically
+        // Filter results to show exact matches and sort alphabetical
         const filteredResults = data.results
             .filter(game => game.name.toLowerCase().includes(title.toLowerCase()))
             .sort((a, b) => a.name.localeCompare(b.name));
@@ -33,11 +34,13 @@ async function fetchGame(title, page = 1) {
 // Function to display games
 function displayResults(data) {
     const resultsRow = document.getElementById('resultsRow');
-    
+
     // Clear existing results if this is the first page
     if (currentPage === 1) {
         resultsRow.innerHTML = '';
     }
+
+    //limit results showing using slice
 
     // Display game results
     if (data.results && data.results.length > 0) {
@@ -70,8 +73,21 @@ function displayResults(data) {
         seeMoreButton.style.display = 'block'; // Show button if there are more pages
     }
 }
+// Function to convert rating to stars
+function getStarRating(rating, maxRating = 5) {
+    const fullStars = Math.floor(rating);
+    const halfStar = (rating % 1) >= 0.5 ? 1 : 0;
+    const emptyStars = maxRating - fullStars - halfStar;
 
-// Function to fetch and show game details
+    let starHTML = '';
+    starHTML += '<i class="fa fa-star"></i>'.repeat(fullStars); // Full stars
+    starHTML += '<i class="fa fa-star-half-alt"></i>'.repeat(halfStar); // Half star
+    starHTML += '<i class="fa fa-star-o"></i>'.repeat(emptyStars); // Empty stars
+
+    return starHTML;
+}
+
+// Update the showGameDetails function to include star ratings
 async function showGameDetails(gameId) {
     const url = `https://api.rawg.io/api/games/${gameId}?key=${apiKey}`;
     try {
@@ -82,8 +98,8 @@ async function showGameDetails(gameId) {
         document.getElementById('modalGameName').textContent = data.name;
         document.getElementById('modalReleased').textContent = `Released: ${data.released}`;
         document.getElementById('modalPlatforms').textContent = `Platforms: ${data.platforms.map(platform => platform.platform.name).join(', ')}`;
-        document.getElementById('modalRating').textContent = `Rating: ${data.rating}`;
-        document.getElementById('modalRatingTop').textContent = `Top Rating: ${data.rating_top}`;
+        document.getElementById('modalRating').innerHTML = `Rating: ${getStarRating(data.rating)}`;
+        document.getElementById('modalRatingTop').innerHTML = `Top Rating: ${getStarRating(data.rating_top, 5)}`;
 
         // Show the modal
         const modal = new bootstrap.Modal(document.getElementById('gameDetailsModal'));
@@ -92,6 +108,7 @@ async function showGameDetails(gameId) {
         console.error("Error Fetching Game Details:", error);
     }
 }
+
 
 // Function to handle game search
 async function getGameList() {
