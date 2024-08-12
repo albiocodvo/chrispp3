@@ -6,9 +6,9 @@ const resultsPerPage = 21;
 
 // Function to reload the page and reset state
 function reloadPage() {
-    searchTitle = ''; // Clear the search title
+    searchTitle = '';
     currentPage = 1;
-    document.getElementById('gameTitle').value = ''; // Clear the search input
+    document.getElementById('gameTitle').value = '';
     window.location.reload();
 }
 
@@ -39,8 +39,6 @@ function displayResults(data) {
     if (currentPage === 1) {
         resultsRow.innerHTML = '';
     }
-
-    //limit results showing using slice
 
     // Display game results
     if (data.results && data.results.length > 0) {
@@ -131,14 +129,14 @@ document.getElementById('seeMoreButton').addEventListener('click', loadMoreGames
 // Add an event listener to the search input to listen for the "Enter" key
 document.getElementById('gameTitle').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent form submission
-        getGameList(); // Call the function to fetch and display games
+        event.preventDefault();
+        getGameList();
     }
 });
 
 // Load initial games on page load
 window.onload = async function() {
-    searchTitle = document.getElementById('gameTitle').value || ''; // Set the search title
-    const data = await fetchGame(searchTitle, currentPage); // Fetch initial games
+    searchTitle = document.getElementById('gameTitle').value || '';
+    const data = await fetchGame(searchTitle, currentPage);
     displayResults(data);
 };
